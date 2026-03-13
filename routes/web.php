@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Auth\AdminAuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,5 +20,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         })->name('dashboard');
 
         Route::resource('book', BookController::class);
+        Route::resource('student', StudentController::class);
     });
 });
