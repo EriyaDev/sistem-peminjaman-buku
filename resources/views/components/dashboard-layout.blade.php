@@ -102,7 +102,8 @@
                                         d="M5 5h4l3 3h6a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3m0 1a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-6.41l-3-3z" />
                                 </svg></x-slot:svg> Master Data</x-multi-nav-link>
                         <ul id="dropdown-child-2" class="">
-                            <x-inside-multi-nav-link href="{{ route('admin.book.index') }}" :active="request()->is('admin/book*')">Book</x-inside-multi-nav-link>
+                            <x-inside-multi-nav-link href="{{ route('admin.book.index') }}"
+                                :active="request()->is('admin/book*')">Book</x-inside-multi-nav-link>
                         </ul>
                     </div>
 
@@ -123,7 +124,8 @@
                                         d="M5 5h4l3 3h6a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3m0 1a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-6.41l-3-3z" />
                                 </svg></x-slot:svg> User</x-multi-nav-link>
                         <ul id="dropdown-child-2" class="">
-                            <x-inside-multi-nav-link href="route('admin.student.index')" :active="request()->is('admin/student*')">Student</x-inside-multi-nav-link>
+                            <x-inside-multi-nav-link href="{{ route('admin.student.index') }}"
+                                :active="request()->is('admin/student*')">Student</x-inside-multi-nav-link>
                         </ul>
                     </div>
 
