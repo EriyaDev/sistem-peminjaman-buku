@@ -46,7 +46,7 @@ class BookController extends Controller
 
         if ($request->hasFile('cover_image')) {
             $image_name = time().'.'.$request->cover_image->extension();
-            $request->cover_image->move(public_path('images'), $image_name);
+            $request->cover_image->move(storage_path('app/public/images'), $image_name);
             $data['cover_image'] = $image_name;
         }
 
@@ -91,12 +91,12 @@ class BookController extends Controller
 
         if ($request->hasFile('cover_image')) {
             // Delete old cover image if it exists
-            if ($book->cover_image && file_exists(public_path('images/'.$book->cover_image))) {
-                unlink(public_path('images/'.$book->cover_image));
+            if ($book->cover_image && file_exists(storage_path('app/public/images/'.$book->cover_image))) {
+                unlink(storage_path('app/public/images/'.$book->cover_image));
             }
 
             $image_name = time().'.'.$request->cover_image->extension();
-            $request->cover_image->move(public_path('images'), $image_name);
+            $request->cover_image->move(storage_path('app/public/images'), $image_name);
             $data['cover_image'] = $image_name;
         }
 

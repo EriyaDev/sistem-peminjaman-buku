@@ -53,7 +53,7 @@
                             <td class="table-cell">{{ $book->qty }} </td>
                             <td class="table-cell">
                                 @if ($book->cover_image)
-                                    <img src="{{ asset('images/' . $book->cover_image) }}" alt="Cover Image"
+                                    <img src="{{ asset('storage/images/' . $book->cover_image) }}" alt="Cover Image"
                                         class="w-16 h-16 object-cover">
                                 @else
                                     <p class="text-gray-500">No Image</p>
