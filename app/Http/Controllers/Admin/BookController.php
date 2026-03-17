@@ -52,7 +52,7 @@ class BookController extends Controller
 
         Book::create($data);
 
-        return redirect()->route('admin.book.index');
+        return redirect()->route('admin.book.index')->with('success', 'Book created successfully');
     }
 
     /**
@@ -102,7 +102,7 @@ class BookController extends Controller
 
         $book->update($data);
 
-        return redirect()->route('admin.book.index');
+        return redirect()->route('admin.book.index')->with('success', 'Book updated successfully');
     }
 
     /**
@@ -112,6 +112,6 @@ class BookController extends Controller
     {
         $book->delete();
 
-        return redirect()->route('admin.book.index');
+        return redirect()->route('admin.book.index')->with('success', 'Book deleted successfully');
     }
 }

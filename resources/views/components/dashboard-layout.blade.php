@@ -22,6 +22,23 @@
 
     <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <script>
+        function toast(pesan) {
+            Toastify({
+                text: pesan,
+                duration: 4000,
+                close: true, // ada tombol X
+                gravity: "top", // "top" atau "bottom"
+                position: "right", // "left", "center", "right"
+                backgroundColor: "#16a34a",
+                stopOnFocus: true, // biar nggak hilang kalau di-hover
+            }).showToast()
+        }
+    </script>
+
     @vite('resources/css/app.css')
 </head>
 
@@ -85,11 +102,11 @@
                                         d="M5 5h4l3 3h6a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3m0 1a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-6.41l-3-3z" />
                                 </svg></x-slot:svg> Master Data</x-multi-nav-link>
                         <ul id="dropdown-child-2" class="">
-                            <x-inside-multi-nav-link href="#" :active="request()->is('admin/book*')">Book</x-inside-multi-nav-link>
+                            <x-inside-multi-nav-link href="{{ route('admin.book.index') }}" :active="request()->is('admin/book*')">Book</x-inside-multi-nav-link>
                         </ul>
                     </div>
 
-                    <x-nav-link href="#" :active="request()->is('admin/event-registration*')"><x-slot:svg><svg
+                    <x-nav-link href="{{ route('admin.transaction.index') }}" :active="request()->is('admin/event-registration*')"><x-slot:svg><svg
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path fill="currentColor"
                                     d="M18.436 20.937H5.562a2.5 2.5 0 0 1-2.5-2.5V5.563a2.5 2.5 0 0 1 2.5-2.5h12.874a2.5 2.5 0 0 1 2.5 2.5v12.874a2.5 2.5 0 0 1-2.5 2.5M5.562 4.063a1.5 1.5 0 0 0-1.5 1.5v12.874a1.5 1.5 0 0 0 1.5 1.5h12.874a1.5 1.5 0 0 0 1.5-1.5V5.563a1.5 1.5 0 0 0-1.5-1.5Z" />
@@ -106,7 +123,7 @@
                                         d="M5 5h4l3 3h6a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3m0 1a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-6.41l-3-3z" />
                                 </svg></x-slot:svg> User</x-multi-nav-link>
                         <ul id="dropdown-child-2" class="">
-                            <x-inside-multi-nav-link href="#" :active="request()->is('admin/student*')">Student</x-inside-multi-nav-link>
+                            <x-inside-multi-nav-link href="route('admin.student.index')" :active="request()->is('admin/student*')">Student</x-inside-multi-nav-link>
                         </ul>
                     </div>
 
@@ -152,6 +169,7 @@
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
@@ -162,7 +180,37 @@
     <script src="{{ asset('scripts/sweetalert.js') }}"></script>
     <script src="{{ asset('scripts/html5-qrcode.min.js') }}"></script>
 
+    <script>
+        function confirmDelete(routeUrl) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This action cannot be undone. The data will be permanently deleted.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true,
 
+                background: '#fefefe',
+                color: '#121212',
+                iconColor: '#f87171',
+
+                // 🎨 Custom warna tombol pakai Tailwind
+                customClass: {
+                    confirmButton: 'button-primary ml-2',
+                    cancelButton: 'button-secondary'
+                },
+                buttonsStyling: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Set action form ke route yang dikirim dari tombol
+                    const form = document.getElementById('deleteForm');
+                    form.action = routeUrl;
+                    form.submit();
+                }
+            });
+        }
+    </script>
 
 
 </body>

@@ -1,6 +1,6 @@
 <x-dashboard-layout>
     <div class="flex flex-row items-center gap-2">
-        <a href="{{ route('event-registration.index') }} " class="breadcrumbs-inactive">event registration</a>
+        <a href="{{ route('admin.transaction.index') }} " class="breadcrumbs-inactive">transaction</a>
         <h1 class="breadcrumbs-inactive"><i class="ri-arrow-right-s-line"></i></h1>
         <h1 class="breadcrumbs-active">Create</h1>
     </div>
@@ -13,10 +13,6 @@
                 <li class="me-2">
                     <button onclick="showTab(1)" id="tab-button-1" class="tab tab-active ">General</button>
                 </li>
-                <li class="me-2">
-                    <button onclick="showTab(2)" id="tab-button-2" class="tab tab-inactive">
-                        Payment</button>
-                </li>
                 {{-- <li>
                     <button
                         class="inline-block p-4 text-gray-400 rounded-t-lg cursor-not-allowed dark:text-inactive-color">Disabled</button>
@@ -24,7 +20,7 @@
             </ul>
         </div>
 
-        <form action="{{ route('event-registration.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.transaction.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             @if ($errors->any())
@@ -38,69 +34,45 @@
             @endif
             <div id="tab-content-1" class="input-container">
                 <div class="input-group">
-                    <x-label for="participant">Participant</x-label>
-                    <x-select-option id="participant" name="participant_id">
-                        @foreach ($participants as $participant)
-                            <option value="{{ $participant->id }}">{{ $participant->username }}</option>
+                    <x-label for="student">student</x-label>
+                    <x-select-option id="student" name="student_id">
+                        @foreach ($students as $student)
+                            <option value="{{ $student->id }}">{{ $student->username }}</option>
                         @endforeach
                     </x-select-option>
                 </div>
                 <div class="input-group">
-                    <x-label for="event">Event Name</x-label>
-                    <x-select-option id="event" name="event_id">
-                        @foreach ($events as $event)
-                            <option data-price="{{ $event->price }}" value="{{ $event->id }}">{{ $event->name }}
+                    <x-label for="book">book</x-label>
+                    <x-select-option id="book" name="book_id">
+                        @foreach ($books as $book)
+                            <option value="{{ $book->id }}">{{ $book->title }}
                             </option>
                         @endforeach
                     </x-select-option>
                 </div>
                 <div class="input-group">
-                    <x-label for="date">date</x-label>
-                    <x-input id="date" type="date" :disabled="false" name="date" value=""
-                        placeholder="Enter registration date..."></x-input>
+                    <x-label for="borrow_date">borrow date</x-label>
+                    <x-input id="borrow_date" type="date" :disabled="false" name="borrow_date" value=""
+                        placeholder="Enter borrow date..."></x-input>
+                </div>
+                <div class="input-group">
+                    <x-label for="return_date">return date</x-label>
+                    <x-input id="return_date" type="date" :disabled="false" name="return_date" :required="false" value=""
+                        placeholder="Enter return date..."></x-input>
                 </div>
                 <div class="input-group">
                     <x-label for="status">Status</x-label>
                     <x-select-option id="status" name="status">
-                        <option value="pending">Pending</option>
-                        <option value="in progress">In Progress</option>
-                        <option value="finished">Finished</option>
-                        <option value="canceled">Canceled</option>
+                        <option value="borrowed">Borrowed</option>
+                        <option value="returned">Returned</option>
+                        <option value="late">Late</option>
                     </x-select-option>
-                </div>
-                <div class="input-group">
-                    <x-label for="ticket-count">Ticket Count</x-label>
-                    <x-input id="ticket-count" type="number" :disabled="false" name="ticket_count" value="1"
-                        placeholder="Enter ticket count..."></x-input>
-                </div>
-                <div class="input-group">
-                    <x-label for="price">total price</x-label>
-                    <x-input id="price" type="number" :disabled="false" name="price" value=""
-                        placeholder="Enter event price..."></x-input>
                 </div>
 
-            </div>
-            <div id="tab-content-2" class="input-container !hidden">
-                <div class="input-group">
-                    <x-label for="payment_status">payment status</x-label>
-                    <x-select-option id="payment_status" name="payment_status">
-                        <option value="pending">Pending</option>
-                        <option value="in progress">In Progress</option>
-                        <option value="finished">Finished</option>
-                        <option value="canceled">Canceled</option>
-                    </x-select-option>
-                </div>
-                <div class="input-group">
-                    <x-label for="payment_proof">payment proof</x-label>
-                    <x-input id="payment_proof" type="file" :disabled="false" :required="false" name="payment_proof"
-                        onchange="previewImage(event)" value=""
-                        placeholder="Enter event payment_proof..."></x-input>
-                    <img src="" alt="" id="imagePreview"
-                        class="w-full h-80 object-cover rounded-sm p-1 hidden">
-                </div>
+
             </div>
             <div class="flex flex-row gap-3">
-                <a href="{{ route('event-registration.index') }}" class="button-secondary">Cancel</a>
+                <a href="{{ route('admin.transaction.index') }}" class="button-secondary">Cancel</a>
                 <button class="button-primary" type="submit">Confirm</button>
             </div>
         </form>

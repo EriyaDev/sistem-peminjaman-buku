@@ -1,13 +1,10 @@
 <x-dashboard-layout>
 
     <div class="flex flex-row justify-between items-center">
-        <h1 class="page-title">event registration</h1>
-        <a href="{{ route('event-registration.create') }}"
+        <h1 class="page-title">transaction</h1>
+        <a href="{{ route('admin.transaction.create') }}"
             class="py-2 px-4 rounded-md bg-accent-color text-white flex flex-row gap-1 items-center"><i
                 class="ri-add-line"></i>Create New</a>
-        {{-- <a href="{{ route('event-registration.archive') }}"
-            class="py-2 px-4 rounded-md bg-accent-color text-white flex flex-row gap-1 items-center"><i
-                class="ri-add-line"></i>Archive</a> --}}
     </div>
 
     @if (session('success'))
@@ -18,7 +15,7 @@
 
     <div class="box-dashboard">
 
-        <form class="flex flex-row  gap-2 items-center w-2/6" action="{{ route('event-registration.index') }}"
+        <form class="flex flex-row  gap-2 items-center w-2/6" action="{{ route('admin.transaction.index') }}"
             method="get">
             @csrf
             <select class="input-box" name="filter" id="">
@@ -32,40 +29,42 @@
             <table>
                 <thead>
                     <th class="thead-cell rounded-tl-xl">Code</th>
-                    <th class="thead-cell">Participant Name</th>
-                    <th class="thead-cell">Event Name</th>
-                    <th class="thead-cell">Date</th>
+                    <th class="thead-cell">Student Name</th>
+                    <th class="thead-cell">Book Title</th>
+                    <th class="thead-cell">Borrow Date</th>
+                    <th class="thead-cell">Return Date</th>
                     <th class="thead-cell">Status</th>
-                    <th class="thead-cell">Payment Status</th>
-                    <th class="thead-cell">Payment Proof</th>
                     <th class="thead-cell rounded-tr-xl">Action</th>
                 </thead>
                 <tbody>
-                    {{-- @dd($event-registrations) --}}
-                    @foreach ($registrations as $registration)
+                    {{-- @dd($transactions) --}}
+                    @foreach ($transactions as $transaction)
                         <tr>
-                            <td class="table-cell">{{ $registration->code }} </td>
-                            <td class="table-cell">{{ $registration->participant->full_name }} </td>
-                            <td class="table-cell">{{ $registration->event->name }} </td>
-                            <td class="table-cell">{{ $registration->date }} </td>
-                            <td class="table-cell">{{ $registration->status }} </td>
-                            <td class="table-cell">{{ $registration->payment_status }} </td>
+                            <td class="table-cell">{{ $transaction->code }} </td>
+                            <td class="table-cell">{{ $transaction->student->full_name }} </td>
+                            <td class="table-cell">{{ $transaction->book->title }} </td>
+                            <td class="table-cell">{{ $transaction->borrow_date }} </td>
+                            <td class="table-cell">{{ $transaction->return_date ?? '-' }} </td>
                             <td class="table-cell">
-                                {!! $registration->payment_proof === 'images/regist/'
-                                    ? '<i class="text-base ri-close-circle-line text-red-500"></i>'
-                                    : '<i class="text-base ri-checkbox-circle-line text-green-500"></i>' !!}
+                                @if ($transaction->status === 'borrowed')
+                                    <span class="text-green-500 px-2 py-1 rounded-md bg-green-500/10">Borrowed</span>
+                                @elseif ($transaction->status === 'returned')
+                                    <span class="text-blue-500 px-2 py-1 rounded-md bg-blue-500/10">Returned</span>
+                                @elseif ($transaction->status === 'late')
+                                    <span class="text-red-500 px-2 py-1 rounded-md bg-red-500/10">Late</span>
+                                @endif
                             </td>
                             <td class="table-cell w-[20%]">
                                 <div class="flex flex-row gap-3 items-center">
                                     <a class="text-blue-500"
-                                        href="{{ route('event-registration.show', $registration->id) }}">
+                                        href="{{ route('admin.transaction.show', $transaction->id) }}">
                                         <i class="text-base ri-eye-line text-text-secondary-color"></i>
                                     </a>
                                     <a class="text-blue-500"
-                                        href="{{ route('event-registration.edit', $registration->id) }}">
+                                        href="{{ route('admin.transaction.edit', $transaction->id) }}">
                                         <i class="text-base ri-edit-line text-accent-color"></i>
                                     </a>
-                                    <form action="{{ route('event-registration.destroy', $registration->id) }}"
+                                    <form action="{{ route('admin.transaction.destroy', $transaction->id) }}"
                                         method="post" onsubmit="return confirm('Are you sure?')">
                                         @csrf
                                         @method('DELETE')
@@ -79,14 +78,14 @@
                 </tbody>
             </table>
 
-            @if ($registrations->isEmpty())
+            @if ($transactions->isEmpty())
                 <div class="w-full flex justify-center p-2">
                     <p class="font-satoshi text-text-primary-color">Looks like there's nothing here yet.</p>
                 </div>
             @endif
 
             {{-- <div class="mt-4">
-                {{ $event-registrations->links() }}
+                {{ $transactions->links() }}
             </div> --}}
         </div>
     </div>

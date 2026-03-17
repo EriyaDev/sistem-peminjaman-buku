@@ -36,18 +36,33 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
+        $latestTransaction = Transaction::latest()->first();
+        $latestTransactionCode = $latestTransaction->code ?? 'TRX000';
+        $latestTransactionCodeNumber = intval(substr($latestTransactionCode, -3));
+        $latestTransactionCodeNumber++;
+        $latestTransactionCode = 'TRX' . str_pad($latestTransactionCodeNumber, 3, '0', STR_PAD_LEFT);
+
         $request->validate([
             'student_id'  => 'required|exists:students,id',
             'book_id'     => 'required|exists:books,id',
-            'code'        => 'required|string|max:255|unique:transactions,code',
+            // 'code'        => 'required|string|max:255|unique:transactions,code',
             'borrow_date' => 'required|date',
             'return_date' => 'nullable|date',
             'status'      => 'required|string|in:borrowed,returned,late',
         ]);
 
-        Transaction::create($request->all());
+        Transaction::create(
+            [
+                'student_id'  => $request->student_id,
+                'book_id'     => $request->book_id,
+                'code'        => $latestTransactionCode,
+                'borrow_date' => $request->borrow_date,
+                'return_date' => $request->return_date,
+                'status'      => $request->status,
+            ]
+        );
 
-        return redirect()->route('admin.transactions.index');
+        return redirect()->route('admin.transaction.index');
     }
 
     /**
@@ -85,7 +100,7 @@ class TransactionController extends Controller
 
         $transaction->update($request->all());
 
-        return redirect()->route('admin.transactions.index');
+        return redirect()->route('admin.transaction.index');
     }
 
     /**
@@ -95,6 +110,6 @@ class TransactionController extends Controller
     {
         $transaction->delete();
 
-        return redirect()->route('admin.transactions.index');
+        return redirect()->route('admin.transaction.index');
     }
 }
