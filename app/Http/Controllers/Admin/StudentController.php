@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
@@ -32,13 +33,20 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'username'  => 'required|string|max:255|unique:students,username',
+            'username' => 'required|string|max:255|unique:students,username',
             'full_name' => 'required|string|max:255',
-            'email'     => 'required|email|max:255|unique:students,email',
-            'password'  => 'required|string|min:6',
+            'email' => 'required|email|max:255|unique:students,email',
+            'password' => 'required|string|min:6',
         ]);
 
-        Student::create($request->all());
+        $hashedPass = Hash::make($request->password);
+
+        Student::create([
+            'username' => $request->username,
+            'full_name' => $request->full_name,
+            'email' => $request->email,
+            'password' => $hashedPass,
+        ]);
 
         return redirect()->route('admin.student.index');
     }
@@ -65,13 +73,20 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         $request->validate([
-            'username'  => 'required|string|max:255|unique:students,username,' . $student->id,
+            'username' => 'required|string|max:255|unique:students,username,'.$student->id,
             'full_name' => 'required|string|max:255',
-            'email'     => 'required|email|max:255|unique:students,email,' . $student->id,
-            'password'  => 'nullable|string|min:6',
+            'email' => 'required|email|max:255|unique:students,email,'.$student->id,
+            'password' => 'nullable|string|min:6',
         ]);
 
-        $student->update($request->all());
+        $hashedPass = Hash::make($request->password);
+
+        $student->update([
+            'username' => $request->username,
+            'full_name' => $request->full_name,
+            'email' => $request->email,
+            'password' => $request->password ? $hashedPass : $student->password,
+        ]);
 
         return redirect()->route('admin.student.index');
     }

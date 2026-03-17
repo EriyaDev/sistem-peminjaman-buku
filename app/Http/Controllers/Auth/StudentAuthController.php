@@ -52,13 +52,13 @@ class StudentAuthController extends Controller
 
     public function showRegisterForm()
     {
-        // return view('Admin.Auth.register');
+        return view('student.auth.register');
     }
 
     public function register(Request $request)
     {
         // validasi
-        $validatedData = $request->validate([
+        $request->validate([
             'username' => 'required|string',
             'email' => 'required|email',
             'password' => ['required', Password::min(6), 'confirmed'],
@@ -66,10 +66,12 @@ class StudentAuthController extends Controller
 
         $hashedPass = Hash::make($request->password);
 
-        $admin = Student::create([
+        Student::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => $hashedPass,
         ]);
+
+        return redirect()->route('student.login')->with('success', '');
     }
 }
