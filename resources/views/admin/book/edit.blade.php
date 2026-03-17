@@ -59,13 +59,13 @@
                 </div>
                 <div class="input-group">
                     <x-label for="publisher">publisher</x-label>
-                    <x-input id="publisher" type="text" :disabled="false" name="publisher" value="{{ $book->publisher }}"
-                        placeholder="Enter book publisher..."></x-input>
+                    <x-input id="publisher" type="text" :disabled="false" name="publisher"
+                        value="{{ $book->publisher }}" placeholder="Enter book publisher..."></x-input>
                 </div>
                 <div class="input-group">
                     <x-label for="published_year">published year</x-label>
-                    <x-input id="published_year" type="number" :disabled="false" name="published_year" value="{{ $book->published_year }}"
-                        placeholder="Enter book published year..."></x-input>
+                    <x-input id="published_year" type="number" :disabled="false" name="published_year"
+                        value="{{ $book->published_year }}" placeholder="Enter book published year..."></x-input>
                 </div>
                 <div class="input-group">
                     <x-label for="qty">Stock</x-label>
@@ -107,8 +107,8 @@
                     <x-input id="cover_image" type="file" :disabled="false" :required="false" name="cover_image"
                         onchange="previewImage(event)" value="" placeholder="Enter book cover_image..."></x-input>
                     @if ($book->cover_image)
-                        <img src="{{ asset('images/' . $book->cover_image) }}" alt="{{ $book->title }}" id="imagePreview"
-                            class="w-full h-64 object-cover rounded-sm p-1">
+                        <img src="{{ asset('storage/images/' . $book->cover_image) }}" alt="{{ $book->title }}"
+                            id="imagePreview" class="w-full h-64 object-cover rounded-sm p-1">
                     @else
                         <img src="" alt="" id="imagePreview"
                             class="w-full h-64 object-cover rounded-sm p-1 hidden">

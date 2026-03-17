@@ -28,38 +28,38 @@
             </ul>
         </div>
 
-            <div id="tab-content-1" class="input-container">
-                <div class="input-group lg:col-span-2">
-                    <x-label for="title">book title</x-label>
-                    <x-input id="title" type="text" :disabled="false" readonly name="title" value="{{ $book->title }}"
-                        placeholder="Enter book title..."></x-input>
-                </div>
-                <div class="input-group">
-                    <x-label for="isbn">isbn</x-label>
-                    <x-input id="isbn" type="text" :disabled="false" readonly name="isbn" value="{{ $book->isbn }}"
-                        placeholder="Enter book isbn..."></x-input>
-                </div>
-                <div class="input-group">
-                    <x-label for="author">author</x-label>
-                    <x-input id="author" type="text" :disabled="false" readonly name="author" value="{{ $book->author }}"
-                        placeholder="Enter book author..."></x-input>
-                </div>
-                <div class="input-group">
-                    <x-label for="publisher">publisher</x-label>
-                    <x-input id="publisher" type="text" :disabled="false" readonly name="publisher" value="{{ $book->publisher }}"
-                        placeholder="Enter book publisher..."></x-input>
-                </div>
-                <div class="input-group">
-                    <x-label for="published_year">published year</x-label>
-                    <x-input id="published_year" type="number" :disabled="false" readonly name="published_year" value="{{ $book->published_year }}"
-                        placeholder="Enter book published year..."></x-input>
-                </div>
-                <div class="input-group">
-                    <x-label for="qty">Stock</x-label>
-                    <x-input id="qty" type="number" :disabled="false" readonly name="qty" value="{{ $book->qty }}"
-                        placeholder="Enter book qty..."></x-input>
-                </div>
-                {{-- <div class="input-group">
+        <div id="tab-content-1" class="input-container">
+            <div class="input-group lg:col-span-2">
+                <x-label for="title">book title</x-label>
+                <x-input id="title" type="text" :disabled="false" readonly name="title"
+                    value="{{ $book->title }}" placeholder="Enter book title..."></x-input>
+            </div>
+            <div class="input-group">
+                <x-label for="isbn">isbn</x-label>
+                <x-input id="isbn" type="text" :disabled="false" readonly name="isbn"
+                    value="{{ $book->isbn }}" placeholder="Enter book isbn..."></x-input>
+            </div>
+            <div class="input-group">
+                <x-label for="author">author</x-label>
+                <x-input id="author" type="text" :disabled="false" readonly name="author"
+                    value="{{ $book->author }}" placeholder="Enter book author..."></x-input>
+            </div>
+            <div class="input-group">
+                <x-label for="publisher">publisher</x-label>
+                <x-input id="publisher" type="text" :disabled="false" readonly name="publisher"
+                    value="{{ $book->publisher }}" placeholder="Enter book publisher..."></x-input>
+            </div>
+            <div class="input-group">
+                <x-label for="published_year">published year</x-label>
+                <x-input id="published_year" type="number" :disabled="false" readonly name="published_year"
+                    value="{{ $book->published_year }}" placeholder="Enter book published year..."></x-input>
+            </div>
+            <div class="input-group">
+                <x-label for="qty">Stock</x-label>
+                <x-input id="qty" type="number" :disabled="false" readonly name="qty"
+                    value="{{ $book->qty }}" placeholder="Enter book qty..."></x-input>
+            </div>
+            {{-- <div class="input-group">
                     <x-label for="type">book Type</x-label>
                     <x-select-option id="type" name="book_type_id">
                         @foreach ($book_types as $book_type)
@@ -67,7 +67,7 @@
                         @endforeach
                     </x-select-option>
                 </div> --}}
-                {{-- <div class="input-group">
+            {{-- <div class="input-group">
                     <x-label for="status">Status</x-label>
                     <x-select-option id="status" name="status">
                         <option value="not started">Not Started</option>
@@ -76,28 +76,28 @@
 
                     </x-select-option>
                 </div> --}}
-                <div class="input-group lg:col-span-2">
-                    <x-label for="description">Description</x-label>
-                    <div class="input-box p-3 min-h-[100px]">{!! $book->description !!}</div>
-                </div>
-                {{-- <div class="input-group lg:col-span-2">
+            <div class="input-group lg:col-span-2">
+                <x-label for="description">Description</x-label>
+                <div class="input-box p-3 min-h-[100px]">{!! $book->description !!}</div>
+            </div>
+            {{-- <div class="input-group lg:col-span-2">
                     <x-label for="agenda">Agenda</x-label>
                     <textarea class="ckeditor form-control" name="agenda" id="agenda" placeholder="Enter book agenda" cols="30"
                         rows="10"></textarea>
                 </div> --}}
-                @if ($book->cover_image)
+            @if ($book->cover_image)
                 <div class="input-group lg:col-span-2">
                     <x-label for="cover_image">cover image</x-label>
-                    <img src="{{ asset('images/' . $book->cover_image) }}" alt="{{ $book->title }}"
+                    <img src="{{ asset('storage/images/' . $book->cover_image) }}" alt="{{ $book->title }}"
                         class="w-full h-64 object-cover rounded-sm p-1">
                 </div>
-                @endif
+            @endif
 
-            </div>
-            <div class="flex flex-row gap-3">
-                <a href="{{ route('admin.book.index') }}" class="button-secondary">Back</a>
-                <a href="{{ route('admin.book.edit', $book) }}" class="button-primary">Edit</a>
-            </div>
+        </div>
+        <div class="flex flex-row gap-3">
+            <a href="{{ route('admin.book.index') }}" class="button-secondary">Back</a>
+            <a href="{{ route('admin.book.edit', $book) }}" class="button-primary">Edit</a>
+        </div>
     </div>
 
 </x-dashboard-layout>
