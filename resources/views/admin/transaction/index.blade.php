@@ -8,9 +8,9 @@
     </div>
 
     @if (session('success'))
-        <div class="bg-green-400 bg-opacity-15 border border-green-400 text-green-500 px-4 py-3 rounded mt-3">
-            {{ session('success') }}
-        </div>
+        <script>
+            toast("{{ session('success') }}")
+        </script>
     @endif
 
     <div class="box-dashboard">
@@ -64,13 +64,14 @@
                                         href="{{ route('admin.transaction.edit', $transaction->id) }}">
                                         <i class="text-base ri-edit-line text-accent-color"></i>
                                     </a>
-                                    <form action="{{ route('admin.transaction.destroy', $transaction->id) }}"
-                                        method="post" onsubmit="return confirm('Are you sure?')">
+                                    <form id="deleteForm" style="display: none" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit"><i
-                                                class="text-base ri-delete-bin-line text-red-500"></i></button>
                                     </form>
+                                    <button
+                                        onclick="confirmDelete('{{ route('admin.transaction.destroy', $transaction->id) }}')"
+                                        type="submit"><i
+                                            class="text-base ri-delete-bin-line text-red-500"></i></button>
                                 </div>
                             </td>
                         </tr>

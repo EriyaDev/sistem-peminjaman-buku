@@ -28,7 +28,8 @@
             </div>
         @endif
 
-        <form action="{{ route('admin.login') }}" method="POST" class="w-full flex flex-col gap-7 items-center">
+        <form action="{{ route('student.login.submit') }}" method="POST"
+            class="w-full flex flex-col gap-7 items-center">
             @csrf
             <div class="flex flex-col gap-5 w-full">
                 <div class="input-group">

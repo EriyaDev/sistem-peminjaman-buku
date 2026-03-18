@@ -40,25 +40,25 @@ class TransactionController extends Controller
         $latestTransactionCode = $latestTransaction->code ?? 'TRX000';
         $latestTransactionCodeNumber = intval(substr($latestTransactionCode, -3));
         $latestTransactionCodeNumber++;
-        $latestTransactionCode = 'TRX' . str_pad($latestTransactionCodeNumber, 3, '0', STR_PAD_LEFT);
+        $latestTransactionCode = 'TRX'.str_pad($latestTransactionCodeNumber, 3, '0', STR_PAD_LEFT);
 
         $request->validate([
-            'student_id'  => 'required|exists:students,id',
-            'book_id'     => 'required|exists:books,id',
+            'student_id' => 'required|exists:students,id',
+            'book_id' => 'required|exists:books,id',
             // 'code'        => 'required|string|max:255|unique:transactions,code',
             'borrow_date' => 'required|date',
             'return_date' => 'nullable|date',
-            'status'      => 'required|string|in:borrowed,returned,late',
+            'status' => 'required|string|in:borrowed,returned,late',
         ]);
 
         Transaction::create(
             [
-                'student_id'  => $request->student_id,
-                'book_id'     => $request->book_id,
-                'code'        => $latestTransactionCode,
+                'student_id' => $request->student_id,
+                'book_id' => $request->book_id,
+                'code' => $latestTransactionCode,
                 'borrow_date' => $request->borrow_date,
                 'return_date' => $request->return_date,
-                'status'      => $request->status,
+                'status' => $request->status,
             ]
         );
 
@@ -70,7 +70,10 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        return view('admin.transaction.show', compact('transaction'));
+        $books = Book::all();
+        $students = Student::all();
+
+        return view('admin.transaction.show', compact('transaction', 'books', 'students'));
     }
 
     /**
@@ -90,12 +93,12 @@ class TransactionController extends Controller
     public function update(Request $request, Transaction $transaction)
     {
         $request->validate([
-            'student_id'  => 'required|exists:students,id',
-            'book_id'     => 'required|exists:books,id',
-            'code'        => 'required|string|max:255|unique:transactions,code,' . $transaction->id,
+            'student_id' => 'required|exists:students,id',
+            'book_id' => 'required|exists:books,id',
+            'code' => 'required|string|max:255|unique:transactions,code,'.$transaction->id,
             'borrow_date' => 'required|date',
             'return_date' => 'nullable|date',
-            'status'      => 'required|string|in:borrowed,returned,late',
+            'status' => 'required|string|in:borrowed,returned,late',
         ]);
 
         $transaction->update($request->all());
