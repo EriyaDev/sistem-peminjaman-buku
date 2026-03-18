@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TransactionController;
@@ -17,9 +18,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
 
     Route::middleware('admin.auth')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [AdminDashboardController::class, 'dashboard'])->name('dashboard');
 
         Route::resource('book', BookController::class);
         Route::resource('student', StudentController::class);

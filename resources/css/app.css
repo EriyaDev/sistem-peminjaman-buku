@@ -59,7 +59,7 @@ aside {
 }
 
 .card-dashboard {
-    @apply bg-secondary-color border grid grid-cols-1 gap-3 border-border-color p-3 rounded-xl mt-2 overflow-x-auto;
+    @apply bg-secondary-color border grid grid-cols-1 gap-3 border-border-color p-3 rounded-xl overflow-x-auto;
 }
 
 .input-container {
@@ -183,6 +183,7 @@ table thead td:last-child {
 }
 
 .medium-title {
+    @apply text-xl lg:text-2xl font-medium;
 }
 
 .small-title {
