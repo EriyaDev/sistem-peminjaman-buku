@@ -10,10 +10,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     @vite('resources/css/app.css')
 </head>
 
 <body class="bg-primary-color w-full h-screen font-satoshi relative flex justify-center items-center">
+
+    @if (session('success'))
+        <script>
+            toast("{{ session('success') }}")
+        </script>
+    @endif
 
     <div class="box-dashboard flex flex-col gap-7 items-center mx-auto w-[90%] max-w-lg">
         <h1 class="page-title">Login</h1>
@@ -44,6 +53,8 @@
                 </div>
             </div>
             <button type="submit" class="button-primary !w-full">Login</button>
+            <p class="text-sm text-gray-500">Don't have an account? <a href="{{ route('student.register') }}"
+                    class="text-blue-500 hover:underline">Register here</a></p>
         </form>
     </div>
 
@@ -52,6 +63,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 
     <script src="{{ asset('scripts/dropdown.js') }}"></script>

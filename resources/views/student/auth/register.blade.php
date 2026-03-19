@@ -33,6 +33,16 @@
             @csrf
             <div class="flex flex-col gap-5 w-full">
                 <div class="input-group">
+                    <x-label for="full_name">Full Name</x-label>
+                    <x-input type="text" id="full_name" :disabled="false" name="full_name" :value="old('full_name')"
+                        placeholder="Enter your full name"></x-input>
+                </div>
+                <div class="input-group">
+                    <x-label for="username">Username</x-label>
+                    <x-input type="text" id="username" :disabled="false" name="username" :value="old('username')"
+                        placeholder="Enter your username"></x-input>
+                </div>
+                <div class="input-group">
                     <x-label for="email">Email</x-label>
                     <x-input type="email" id="email" :disabled="false" name="email" :value="old('email')"
                         placeholder="Enter your email"></x-input>
@@ -42,8 +52,13 @@
                     <x-input type="password" id="password" :disabled="false" name="password" value=""
                         placeholder="Enter your password"></x-input>
                 </div>
+                <div class="input-group">
+                    <x-label for="password_confirmation">Confirm Password</x-label>
+                    <x-input type="password" id="password_confirmation" :disabled="false" name="password_confirmation"
+                        value="" placeholder="Confirm your password"></x-input>
+                </div>
             </div>
-            <button type="submit" class="button-primary !w-full">Login</button>
+            <button type="submit" class="button-primary !w-full">Register</button>
         </form>
     </div>
 

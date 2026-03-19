@@ -59,6 +59,7 @@ class StudentAuthController extends Controller
     {
         // validasi
         $request->validate([
+            'full_name' => 'required|string',
             'username' => 'required|string',
             'email' => 'required|email',
             'password' => ['required', Password::min(6), 'confirmed'],
@@ -67,11 +68,12 @@ class StudentAuthController extends Controller
         $hashedPass = Hash::make($request->password);
 
         Student::create([
+            'full_name' => $request->full_name,
             'username' => $request->username,
             'email' => $request->email,
             'password' => $hashedPass,
         ]);
 
-        return redirect()->route('student.login')->with('success', '');
+        return redirect()->route('student.login')->with('success', 'Account created successfully! Please login to continue.');
     }
 }
